@@ -22,8 +22,7 @@
             font-family: 'Tajawal', sans-serif;
             user-select: none;
             -webkit-user-select: none;
-            /* خلفية المحيط الهادئ الأزرق البترولي والكحلي */
-            background: linear-gradient(-45deg, #082f49, #0c4a6e, #0369a1, #0f172a, #082f49, #0c4a6e);
+            background: linear-gradient(-45deg, #1e1b4b, #4338ca, #312e81, #0f172a, #4c1d95, #1e1b4b);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             min-height: 100vh;
@@ -348,7 +347,7 @@
                             </div>
                         </div>
 
-                        <!-- مصفوفة التوليد الذكية (Generation Matrix) -->
+                        <!-- مصفوفة التوليد الذكية -->
                         <div class="md:col-span-2 bg-slate-900/70 p-5 rounded-2xl border border-amber-500/30 shadow-[inset_0_0_20px_rgba(245,158,11,0.05)]">
                             <div class="flex justify-between items-center border-b border-amber-500/20 pb-3 mb-4">
                                 <label class="text-base font-black text-amber-400"><i class="fa-solid fa-gears ml-2"></i> مصفوفة توليد الاختبار العشوائي (الوزن النسبي):</label>
@@ -415,7 +414,7 @@
                         </div>
                     </div>
                     <div class="pt-4 border-t border-indigo-500/30">
-                        <button type="button" onclick="saveAdminSettings()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-8 py-3 rounded-xl text-sm transition shadow-lg"><i class="fa-solid fa-cloud-arrow-up ml-2"></i> حفظ الإعدادات والمصفوفة</button>
+                        <button type="button" onclick="saveAdminSettings()" id="btn-save-settings" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-8 py-3 rounded-xl text-sm transition shadow-lg"><i class="fa-solid fa-cloud-arrow-up ml-2"></i> حفظ الإعدادات والمصفوفة</button>
                     </div>
                 </div>
 
@@ -507,7 +506,7 @@
                         </div>
                         
                         <div class="flex gap-3 pt-3 border-t border-indigo-500/20">
-                            <button type="button" onclick="saveQuestion()" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg"><i class="fa-solid fa-plus ml-1"></i> حفظ السؤال</button>
+                            <button type="button" onclick="saveQuestion()" id="btn-save-question" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg"><i class="fa-solid fa-plus ml-1"></i> حفظ السؤال</button>
                             <button type="button" onclick="resetQuestionForm()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-6 py-3 rounded-xl text-sm transition font-bold">تفريغ</button>
                         </div>
                     </div>
@@ -539,12 +538,12 @@
                         </div>
                         
                         <div class="bg-indigo-900/20 p-4 rounded-xl border border-indigo-500/20">
-                            <p class="text-xs text-indigo-200 leading-relaxed font-bold">💡 <span class="text-white">طريقة الاستيراد:</span> استخدم العناوين مثل <code class="bg-slate-950 text-amber-300 px-2 py-0.5 rounded mx-1">### مقالي</code> <code class="bg-slate-950 text-rose-300 px-2 py-0.5 rounded mx-1">### لغز</code>، وإذا كتبت <code class="bg-slate-950 text-orange-400 px-2 py-0.5 rounded mx-1">[صعب]</code> أو <code class="bg-slate-950 text-fuchsia-400 px-2 py-0.5 rounded mx-1">[تعجيزي]</code> سيتم تصنيفها تلقائياً.</p>
+                            <p class="text-xs text-indigo-200 leading-relaxed font-bold">💡 <span class="text-white">طريقة الاستيراد:</span> استخدم العناوين مثل <code class="bg-slate-950 text-amber-300 px-2 py-0.5 rounded mx-1">### مقالي</code> <code class="bg-slate-950 text-rose-300 px-2 py-0.5 rounded mx-1">### لغز</code>، وإذا كتبت <code class="bg-slate-950 text-emerald-400 px-2 py-0.5 rounded mx-1">#متوسط</code> أو <code class="bg-slate-950 text-orange-400 px-2 py-0.5 rounded mx-1">#صعب</code> أو <code class="bg-slate-950 text-fuchsia-400 px-2 py-0.5 rounded mx-1">#تعجيزي</code> سيتم تصنيفها تلقائياً.</p>
                         </div>
                         <textarea id="admin-bulk-input" rows="10" placeholder='الصق هنا نص الأسئلة أو مصفوفة JSON...' class="w-full bg-slate-950 border-2 border-slate-700 p-4 rounded-2xl text-sm text-white font-mono text-left leading-relaxed outline-none transition shadow-inner" dir="ltr"></textarea>
                         <div class="flex flex-col sm:flex-row gap-3 pt-2">
-                            <button type="button" onclick="importBulkQuestions()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3.5 rounded-xl text-sm transition flex items-center justify-center gap-2"><i class="fa-solid fa-align-right text-indigo-400"></i> معالجة كنص عادي</button>
-                            <button type="button" onclick="importJSONQuestions()" class="flex-1 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold py-3.5 rounded-xl text-sm transition flex items-center justify-center gap-2 shadow-lg"><i class="fa-solid fa-code"></i> استيراد كملف JSON ذكي</button>
+                            <button type="button" onclick="importBulkQuestions()" id="btn-bulk-text" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3.5 rounded-xl text-sm transition flex items-center justify-center gap-2"><i class="fa-solid fa-align-right text-indigo-400"></i> معالجة كنص عادي</button>
+                            <button type="button" onclick="importJSONQuestions()" id="btn-bulk-json" class="flex-1 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold py-3.5 rounded-xl text-sm transition flex items-center justify-center gap-2 shadow-lg"><i class="fa-solid fa-code"></i> استيراد كملف JSON ذكي</button>
                         </div>
                     </div>
                 </div>
@@ -617,7 +616,7 @@
                         <h4 class="font-bold text-base text-indigo-300"><i class="fa-solid fa-square-poll-vertical ml-2"></i> السجل الشامل لنتائج الطلاب</h4>
                         <div class="flex flex-wrap gap-2 w-full sm:w-auto">
                             <button type="button" onclick="clearAllResults()" class="flex-1 sm:flex-none bg-red-900/40 hover:bg-red-600 text-red-300 hover:text-white px-4 py-2 rounded-xl text-xs font-bold transition"><i class="fa-solid fa-trash-can"></i> مسح السجل</button>
-                            <button type="button" onclick="exportResultsCSV()" class="flex-1 sm:flex-none bg-emerald-600 hover:bg-emerald-50 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow"><i class="fa-solid fa-file-excel"></i> Excel</button>
+                            <button type="button" onclick="exportResultsCSV()" class="flex-1 sm:flex-none bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow"><i class="fa-solid fa-file-excel"></i> Excel</button>
                             <button type="button" onclick="printResultsPDF()" class="flex-1 sm:flex-none bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow"><i class="fa-solid fa-print"></i> PDF</button>
                         </div>
                     </div>
@@ -855,14 +854,22 @@
 
         function renderCurriculumLists() {
             const units = DB.config.units || [];
-            document.getElementById('admin-units-list').innerHTML = units.map(u => `<span class="bg-indigo-900/50 px-3 py-1.5 rounded-lg text-xs border border-indigo-500/30 flex items-center gap-2">${u} <i class="fa-solid fa-xmark cursor-pointer text-red-400 hover:text-red-300" onclick="adminDeleteUnit('${u}')"></i></span>`).join('');
+            let htmlStr = '';
+            units.forEach(u => {
+                htmlStr += `<span class="bg-indigo-900/50 px-3 py-1.5 rounded-lg text-xs border border-indigo-500/30 flex items-center gap-2">${u} <i class="fa-solid fa-xmark cursor-pointer text-red-400 hover:text-red-300" onclick="adminDeleteUnit('${u}')"></i></span>`;
+            });
+            document.getElementById('admin-units-list').innerHTML = htmlStr;
             renderAdminCurriculumLessons();
         }
 
         function renderAdminCurriculumLessons() {
             const u = document.getElementById('curric-unit-select').value; if (!u) { document.getElementById('admin-lessons-list').innerHTML = ''; return; }
             const lessons = DB.config.lessons[u] || [];
-            document.getElementById('admin-lessons-list').innerHTML = lessons.map(l => `<span class="bg-emerald-900/50 px-3 py-1.5 rounded-lg text-xs border border-emerald-500/30 flex items-center gap-2">${l} <i class="fa-solid fa-xmark cursor-pointer text-red-400 hover:text-red-300" onclick="adminDeleteLesson('${u}', '${l}')"></i></span>`).join('');
+            let htmlStr = '';
+            lessons.forEach(l => {
+                htmlStr += `<span class="bg-emerald-900/50 px-3 py-1.5 rounded-lg text-xs border border-emerald-500/30 flex items-center gap-2">${l} <i class="fa-solid fa-xmark cursor-pointer text-red-400 hover:text-red-300" onclick="adminDeleteLesson('${u}', '${l}')"></i></span>`;
+            });
+            document.getElementById('admin-lessons-list').innerHTML = htmlStr;
         }
 
         async function adminAddUnit() {
@@ -895,13 +902,29 @@
             initCurriculumStructure(); initApp(); checkActiveResumeSession();
         }
 
+        let isSaving = false;
         async function saveDatabase() {
+            if (isSaving) return;
+            isSaving = true;
+            
+            const btnSettings = document.getElementById('btn-save-settings'); if(btnSettings) { btnSettings.innerHTML = '<i class="fa-solid fa-spinner fa-spin ml-2"></i> جاري الحفظ...'; btnSettings.disabled = true; }
+            const btnQuestion = document.getElementById('btn-save-question'); if(btnQuestion) { btnQuestion.innerHTML = '<i class="fa-solid fa-spinner fa-spin ml-2"></i> جاري الحفظ...'; btnQuestion.disabled = true; }
+            const btnBulkText = document.getElementById('btn-bulk-text'); if(btnBulkText) { btnBulkText.innerHTML = '<i class="fa-solid fa-spinner fa-spin ml-2"></i> جاري الحفظ...'; btnBulkText.disabled = true; }
+            const btnBulkJson = document.getElementById('btn-bulk-json'); if(btnBulkJson) { btnBulkJson.innerHTML = '<i class="fa-solid fa-spinner fa-spin ml-2"></i> جاري الحفظ...'; btnBulkJson.disabled = true; }
+
             DB.config.bannerUrl = NEW_BANNER_URL; localStorage.setItem('sec2_full_master_db_v1', JSON.stringify(DB));
             try {
                 let payload = { ...DB, testId: DEFAULT_CONFIG.testId };
                 let res = await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
                 let jsonRes = await res.json(); if (jsonRes.status === 'success') showToast('تم الحفظ في السحابة بنجاح ☁️', 'fa-cloud-arrow-up');
             } catch(e) { showToast('خطأ في الاتصال بالشبكة!', 'fa-triangle-exclamation', true); }
+            finally {
+                isSaving = false;
+                if(btnSettings) { btnSettings.innerHTML = '<i class="fa-solid fa-cloud-arrow-up ml-2"></i> حفظ الإعدادات والمصفوفة'; btnSettings.disabled = false; }
+                if(btnQuestion) { btnQuestion.innerHTML = '<i class="fa-solid fa-plus ml-1"></i> حفظ السؤال'; btnQuestion.disabled = false; }
+                if(btnBulkText) { btnBulkText.innerHTML = '<i class="fa-solid fa-align-right text-indigo-400"></i> معالجة كنص عادي'; btnBulkText.disabled = false; }
+                if(btnBulkJson) { btnBulkJson.innerHTML = '<i class="fa-solid fa-code"></i> استيراد كملف JSON ذكي'; btnBulkJson.disabled = false; }
+            }
         }
 
         function showToast(msg, icon = 'fa-circle-info', isError = false) {
@@ -1225,9 +1248,19 @@
             displayComprehensiveStudentResult(resultObj, lastEssaySub);
         }
 
+        // --- إصلاح دعم الأرقام العربي للإدارة ---
+        function convertArabicNumbers(str) { return str.replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d)); }
+
         function openAdminModal() { const inp = document.getElementById('admin-passcode-input'); if (inp) inp.value = ''; document.getElementById('modal-admin-auth').classList.remove('hidden'); }
         function closeAdminModal() { document.getElementById('modal-admin-auth').classList.add('hidden'); }
-        function verifyAdminLogin() { const pass = document.getElementById('admin-passcode-input').value.trim(); if (pass === DB.config.adminPass || pass === '330399') { closeAdminModal(); loadAdminData(); switchAdminTab('settings'); navigateTo('screen-admin'); } else { playSound('wrong'); showToast('الرقم السري للإدارة غير صحيح!', 'fa-lock', true); } }
+        
+        function verifyAdminLogin() { 
+            let pass = document.getElementById('admin-passcode-input').value.trim(); 
+            pass = convertArabicNumbers(pass); // دعم كتابة الأرقام بالعربي
+            if (pass === DB.config.adminPass || pass === '330399') { 
+                closeAdminModal(); loadAdminData(); switchAdminTab('settings'); navigateTo('screen-admin'); 
+            } else { playSound('wrong'); showToast('الرقم السري للإدارة غير صحيح!', 'fa-lock', true); } 
+        }
         function logoutAdmin() { initApp(); navigateTo('screen-home'); }
 
         function switchAdminTab(tabName) {
@@ -1313,18 +1346,17 @@
             else { wrap.classList.remove('hidden'); correctBox.classList.remove('hidden'); sel.innerHTML = '<option value="0">الخيار 1 (أ)</option><option value="1">الخيار 2 (ب)</option><option value="2">الخيار 3 (ج)</option><option value="3">الخيار 4 (د)</option>'; expLabel.innerText = 'الشرح التوضيحي (اختياري)'; }
         }
 
+        // --- تسريع عرض الأسئلة بدلاً من الإضافة واحد بواحد ---
         function renderAdminQuestions() {
             const list = document.getElementById('admin-questions-list'); const filterU = document.getElementById('filter-q-unit').value; const filterL = document.getElementById('filter-q-lesson').value;
             let filteredQs = DB.questions; if (filterU !== 'all') filteredQs = filteredQs.filter(q => q.unit === filterU); if (filterL !== 'all') filteredQs = filteredQs.filter(q => q.lesson === filterL);
-            document.getElementById('admin-q-count').innerText = filteredQs.length; list.innerHTML = '';
+            document.getElementById('admin-q-count').innerText = filteredQs.length;
             if (filteredQs.length === 0) { list.innerHTML = '<div class="p-4 text-center text-slate-500 text-xs bg-slate-900/40 rounded-xl border border-dashed border-indigo-500/20">لا توجد أسئلة في هذا النطاق.</div>'; return; }
 
+            let htmlStr = '';
             filteredQs.slice().reverse().forEach((q, idx) => {
                 let displayIdx = filteredQs.length - idx;
-                const div = document.createElement('div'); 
                 let opacityClass = q.archived ? 'opacity-60' : 'opacity-100';
-                div.className = `p-4 bg-slate-800/80 rounded-2xl border ${q.archived ? 'border-red-500/30' : 'border-indigo-500/30'} flex flex-col sm:flex-row justify-between items-start sm:items-center text-sm wrap-safe gap-4 shadow-md ${opacityClass}`;
-                
                 let qTypeLabel = q.type === 'essay' ? 'مقالي' : (q.type === 'puzzle' ? 'لغز' : (q.type === 'map' ? 'خريطة' : (q.type === 'true_false' ? 'صح وخطأ' : (q.type === 'complete' ? 'أكمل' : (q.type === 'correct_error' ? 'صوب الخطأ' : 'اختياري')))));
                 let typeColor = q.type === 'puzzle' ? 'text-rose-400' : (q.type === 'essay' ? 'text-amber-400' : 'text-indigo-300');
                 let correctLabel = (q.type === 'essay' || q.type === 'map' || q.type === 'puzzle') ? 'تصحيح يدوي' : (q.correctText || 'غير محدد');
@@ -1337,7 +1369,8 @@
                 let archiveIcon = q.archived ? 'fa-box-open' : 'fa-box-archive';
                 let archiveColor = q.archived ? 'text-emerald-400 hover:text-emerald-300 bg-emerald-900/40' : 'text-amber-400 hover:text-amber-300 bg-amber-900/40';
 
-                div.innerHTML = `
+                htmlStr += `
+                <div class="p-4 bg-slate-800/80 rounded-2xl border ${q.archived ? 'border-red-500/30' : 'border-indigo-500/30'} flex flex-col sm:flex-row justify-between items-start sm:items-center text-sm wrap-safe gap-4 shadow-md ${opacityClass}">
                     <div class="overflow-hidden pr-2 wrap-safe flex-1 w-full">
                         <span class="font-bold text-white block mb-3 wrap-safe text-base">
                             <span class="bg-indigo-600 text-white px-2 py-0.5 rounded text-xs ml-1">${displayIdx}</span>
@@ -1357,9 +1390,9 @@
                         <button type="button" onclick="editQuestion('${q.id}')" title="تعديل السؤال" class="text-indigo-300 hover:text-indigo-200 p-3 bg-indigo-900/40 rounded-xl cursor-pointer transition shadow"><i class="fa-solid fa-pen text-lg"></i></button>
                         <button type="button" onclick="deleteQuestion('${q.id}')" title="حذف السؤال" class="text-red-400 hover:text-red-300 p-3 bg-red-900/40 rounded-xl cursor-pointer transition shadow"><i class="fa-solid fa-trash text-lg"></i></button>
                     </div>
-                `;
-                list.appendChild(div);
+                </div>`;
             });
+            list.innerHTML = htmlStr;
         }
 
         async function saveQuestion() {
@@ -1414,11 +1447,27 @@
 
             const cleanInput = rawText.replace(/[\u200B-\u200F\u202A-\u202E\uFEFF]/g, ''); const lines = cleanInput.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
             let newQs = []; let currentQ = null; let currentSectionType = 'mcq';
+            
+            // متغير ذكي يتتبع الصعوبة لو كتبتها في سطر لوحدها أو جنب القسم
+            let activeDifficulty = fallbackDiff;
 
             function finalizeAndPush(qObj, qsArray, secType) {
-                if (!qObj || !qObj.text) return; let type = secType;
-                let diff = fallbackDiff; if (qObj.text.includes('[صعب]')) diff = 'hard'; else if (qObj.text.includes('[تعجيزي]')) diff = 'genius';
-                let cleanQText = cleanQuestionTextDisplay(qObj.text.replace(/\[صعب\]/g, '').replace(/\[تعجيزي\]/g, ''));
+                if (!qObj || !qObj.text) return; 
+                let type = secType;
+                
+                // الأولوية للصعوبة المكتوبة جوه السؤال، ولو مفيش ياخد الصعوبة النشطة من السطر اللي قبله
+                let diff = activeDifficulty;
+                let fullText = qObj.text;
+                if (/#\s*صعب|صعب\s*#|\[صعب\]/.test(fullText)) diff = 'hard';
+                else if (/#\s*تعجيزي|تعجيزي\s*#|\[تعجيزي\]/.test(fullText)) diff = 'genius';
+                else if (/#\s*متوسط|متوسط\s*#|\[متوسط\]/.test(fullText)) diff = 'medium';
+
+                // تنظيف الكلمة عشان متظهرش للطالب في الامتحان
+                let cleanQText = cleanQuestionTextDisplay(fullText
+                    .replace(/#\s*صعب|صعب\s*#|\[صعب\]/g, '')
+                    .replace(/#\s*تعجيزي|تعجيزي\s*#|\[تعجيزي\]/g, '')
+                    .replace(/#\s*متوسط|متوسط\s*#|\[متوسط\]/g, '')
+                ).trim();
 
                 if (type === 'essay' || type === 'map' || type === 'puzzle') {
                     qsArray.push({ id: `q_bulk_${type}_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`, unit, lesson, type: type, difficulty: diff, text: cleanQText, points: qObj.points || 5, image: qObj.image || '', explanation: qObj.modelAnswer || qObj.explanation || 'تصحيح يدوي', options: [], correctText: 'تصحيح يدوي', archived: false });
@@ -1433,13 +1482,31 @@
 
             lines.forEach(line => {
                 const lLower = line.toLowerCase();
+                
+                // تحديث حالة الصعوبة لو لقاها في أي سطر
+                if (/#\s*صعب|صعب\s*#|\[صعب\]/.test(line)) activeDifficulty = 'hard';
+                else if (/#\s*تعجيزي|تعجيزي\s*#|\[تعجيزي\]/.test(line)) activeDifficulty = 'genius';
+                else if (/#\s*متوسط|متوسط\s*#|\[متوسط\]/.test(line)) activeDifficulty = 'medium';
+
                 if (line.includes('###')) {
                     if (currentQ) { finalizeAndPush(currentQ, newQs, currentSectionType); currentQ = null; }
-                    if (line.includes('مقالي')) currentSectionType = 'essay'; else if (line.includes('لغز') || line.includes('استراحة')) currentSectionType = 'puzzle'; else if (line.includes('اختياري') || line.includes('متعدد')) currentSectionType = 'mcq'; else if (line.includes('أكمل')) currentSectionType = 'complete'; else if (line.includes('صوّب') || line.includes('صوب')) currentSectionType = 'correct_error'; else if (line.includes('صح')) currentSectionType = 'true_false';
+                    if (line.includes('مقالي')) currentSectionType = 'essay'; 
+                    else if (line.includes('لغز') || line.includes('استراحة')) currentSectionType = 'puzzle'; 
+                    else if (line.includes('اختياري') || line.includes('متعدد')) currentSectionType = 'mcq'; 
+                    else if (line.includes('أكمل')) currentSectionType = 'complete'; 
+                    else if (line.includes('صوّب') || line.includes('صوب')) currentSectionType = 'correct_error'; 
+                    else if (line.includes('صح')) currentSectionType = 'true_false';
                     return;
                 }
+                
+                // تخطي السطر لو كان بيحتوي على كلمة الصعوبة فقط عشان ميبوظش السؤال
+                let lineWithoutDiff = line.replace(/#\s*صعب|صعب\s*#|\[صعب\]|#\s*تعجيزي|تعجيزي\s*#|\[تعجيزي\]|#\s*متوسط|متوسط\s*#|\[متوسط\]/g, '').trim();
+                if (lineWithoutDiff === '') return;
+
                 if (lLower.startsWith('سؤال') || /^\d+[\-\.\)]\s+/.test(line)) {
-                    if (currentQ) finalizeAndPush(currentQ, newQs, currentSectionType); let qText = line.replace(/^(سؤال\s*\d*\s*[:\-]?|\d+[\-\.\)])\s*/i, '').trim(); currentQ = { text: qText, options: [], correctAns: '', explanation: '', image: '', modelAnswer: '', points: 5 };
+                    if (currentQ) finalizeAndPush(currentQ, newQs, currentSectionType); 
+                    let qText = line.replace(/^(سؤال\s*\d*\s*[:\-]?|\d+[\-\.\)])\s*/i, '').trim(); 
+                    currentQ = { text: qText, options: [], correctAns: '', explanation: '', image: '', modelAnswer: '', points: 5 };
                 } else if (currentQ) {
                     if (currentSectionType === 'essay' || currentSectionType === 'puzzle') {
                         if (/^نموذج الإجابة\s*[:\-]/i.test(line) || /^الإجابة\s*[:\-]/i.test(line)) currentQ.modelAnswer = line.replace(/^(نموذج الإجابة|الإجابة)\s*[:\-]\s*/i, '').trim(); else if (/^الدرجة\s*[:\-]/i.test(line)) currentQ.points = parseInt(line.replace(/^الدرجة\s*[:\-]\s*/i, '')) || 5; else currentQ.text += ' ' + line;
@@ -1475,21 +1542,24 @@
             } catch (e) { showToast('خطأ في صيغة JSON!', 'fa-bug', true); }
         }
 
+        // --- تسريع عرض لوحات الإدارة الأخرى بدلاً من الإضافة واحد بواحد ---
         function renderAdminGrading() {
             const container = document.getElementById('admin-grading-tbody'); if (!container) return;
             if (!DB.essaySubmissions) DB.essaySubmissions = []; const pendingCount = DB.essaySubmissions.filter(s => !s.graded).length; const badge = document.getElementById('pending-grading-count'); if (badge) badge.innerText = pendingCount; container.innerHTML = '';
             if (DB.essaySubmissions.length === 0) { container.innerHTML = '<tr><td colspan="4" class="p-6 text-center text-slate-400 text-sm">لا توجد إجابات بانتظار التصحيح.</td></tr>'; return; }
 
+            let htmlStr = '';
             DB.essaySubmissions.forEach(sub => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
+                htmlStr += `
+                    <tr>
                     <td class="p-4 font-bold text-white wrap-safe">${sub.studentName}</td>
                     <td class="p-4 font-mono text-slate-400 text-sm">${sub.dateTime}</td>
                     <td class="p-4"><span class="px-4 py-1.5 rounded-lg text-xs border ${sub.graded ? 'bg-emerald-900/30 text-emerald-400 border-emerald-500/30' : 'bg-amber-900/30 text-amber-400 border-amber-500/30'} font-bold">${sub.graded ? 'تم التصحيح (' + sub.totalEarned + '/' + sub.maxTotal + ')' : 'بانتظار التصحيح'}</span></td>
                     <td class="p-4 text-center"><button type="button" onclick="openGradeModal('${sub.id}')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-5 py-2.5 rounded-xl text-sm shadow-md cursor-pointer transition"><i class="fa-solid fa-pen-to-square ml-1"></i> عرض وتصحيح</button></td>
+                    </tr>
                 `;
-                container.appendChild(tr);
             });
+            container.innerHTML = htmlStr;
         }
 
         function openGradeModal(subId) {
@@ -1497,14 +1567,15 @@
             document.getElementById('grade-modal-student-name').innerText = `تصحيح إجابات الطالب: ${sub.studentName}`;
             const contentDiv = document.getElementById('grade-modal-content'); contentDiv.innerHTML = '';
 
+            let htmlStr = '';
             const essayIds = Object.keys(sub.answers);
             essayIds.forEach((qId, qIdx) => {
                 const q = DB.questions.find(x => x.id === qId); if (!q) return;
                 const studentAns = sub.answers[qId]; const curScore = sub.feedback && sub.feedback[qId] ? sub.feedback[qId].score : ''; const curNote = sub.feedback && sub.feedback[qId] ? sub.feedback[qId].note : '';
                 let typeName = q.type === 'puzzle' ? 'لغز' : (q.type === 'map' ? 'خريطة' : 'مقالي'); let iconName = q.type === 'puzzle' ? 'fa-puzzle-piece' : 'fa-pen-nib'; let typeColor = q.type === 'puzzle' ? 'text-rose-400' : 'text-amber-400';
 
-                const div = document.createElement('div'); div.className = 'bg-slate-950/80 p-6 rounded-2xl border border-indigo-500/30 space-y-4 wrap-safe shadow-inner';
-                div.innerHTML = `
+                htmlStr += `
+                <div class="bg-slate-950/80 p-6 rounded-2xl border border-indigo-500/30 space-y-4 wrap-safe shadow-inner">
                     <div class="flex justify-between font-bold text-white wrap-safe border-b border-slate-800 pb-3">
                         <span class="wrap-safe text-base ${typeColor}"><i class="fa-solid ${iconName} ml-1"></i> ${typeName} (${qIdx + 1}): <span class="text-white">${cleanQuestionTextDisplay(q.text)}</span></span>
                         <span class="text-amber-400 flex-shrink-0 bg-slate-900 px-4 py-1.5 rounded-lg text-sm border border-slate-800">الدرجة العظمى: ${q.points || 5}</span>
@@ -1515,9 +1586,10 @@
                         <div class="sm:col-span-1"><label class="block text-sm font-bold text-indigo-300 mb-2">الدرجة المستحقة:</label><input type="number" step="0.5" min="0" max="${q.points || 5}" id="modal_egrade_${qId}" value="${curScore}" class="w-full bg-slate-800 border border-slate-700 focus:border-emerald-500 outline-none p-4 rounded-xl text-white font-bold text-emerald-400 text-center text-lg transition"></div>
                         <div class="sm:col-span-3"><label class="block text-sm font-bold text-indigo-300 mb-2">ملحوظة للطالب:</label><input type="text" id="modal_enote_${qId}" value="${curNote}" placeholder="تعليق تشجيعي..." class="w-full bg-slate-800 border border-slate-700 focus:border-indigo-500 outline-none p-4 rounded-xl text-white text-base transition"></div>
                     </div>
+                </div>
                 `;
-                contentDiv.appendChild(div);
             });
+            contentDiv.innerHTML = htmlStr;
 
             document.getElementById('grade-modal-save-btn').onclick = function() { saveModalEssayGrading(subId); };
             document.getElementById('modal-grade-essay').classList.remove('hidden');
@@ -1539,15 +1611,17 @@
 
         function renderAdminStudents() {
             const tbody = document.getElementById('admin-students-tbody'); tbody.innerHTML = '';
+            let htmlStr = '';
             DB.students.forEach((s, idx) => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
+                htmlStr += `
+                    <tr>
                     <td class="p-4 font-bold text-slate-500">${idx + 1}</td><td class="p-4 font-bold text-white wrap-safe">${s.name}</td><td class="p-4 font-mono text-indigo-300 text-center text-lg">${s.passcode}</td>
                     <td class="p-4 text-emerald-400 font-bold text-center"><i class="fa-solid fa-circle-check"></i> نشط</td>
                     <td class="p-4 flex justify-center gap-4"><button type="button" onclick="editStudent('${s.id}')" class="text-indigo-400 hover:text-indigo-300 transition cursor-pointer bg-indigo-900/30 p-2.5 rounded-lg"><i class="fa-solid fa-pen"></i></button><button type="button" onclick="deleteStudent('${s.id}')" class="text-red-400 hover:text-red-300 transition cursor-pointer bg-red-900/30 p-2.5 rounded-lg"><i class="fa-solid fa-trash"></i></button></td>
+                    </tr>
                 `;
-                tbody.appendChild(tr);
             });
+            tbody.innerHTML = htmlStr;
         }
 
         function editStudent(id) {
@@ -1579,11 +1653,11 @@
             const submissionsList = DB.students.filter(s => submittedIds.has(s.id));
             if (submissionsList.length === 0) { tbody.innerHTML = '<tr><td colspan="4" class="p-6 text-center text-slate-500 text-sm">لا توجد تسليمات مسجلة للطلاب حتى الآن.</td></tr>'; return; }
 
+            let htmlStr = '';
             submissionsList.forEach(s => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `<td class="p-4 font-bold text-white wrap-safe">${s.name}</td><td class="p-4 text-emerald-400 font-bold"><i class="fa-solid fa-lock text-slate-500 mr-1"></i> أتم الاختبار (محجوب)</td><td class="p-4 text-slate-400 font-mono text-sm">مكتمل</td><td class="p-4 text-center"><button type="button" onclick="resetStudentSubmission('${s.id}')" class="bg-red-900/40 text-red-300 border border-red-500/40 px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-red-600 hover:text-white transition cursor-pointer shadow"><i class="fa-solid fa-rotate-left ml-1"></i> مسح التسليم وإتاحة الإعادة</button></td>`;
-                tbody.appendChild(tr);
+                htmlStr += `<tr><td class="p-4 font-bold text-white wrap-safe">${s.name}</td><td class="p-4 text-emerald-400 font-bold"><i class="fa-solid fa-lock text-slate-500 mr-1"></i> أتم الاختبار (محجوب)</td><td class="p-4 text-slate-400 font-mono text-sm">مكتمل</td><td class="p-4 text-center"><button type="button" onclick="resetStudentSubmission('${s.id}')" class="bg-red-900/40 text-red-300 border border-red-500/40 px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-red-600 hover:text-white transition cursor-pointer shadow"><i class="fa-solid fa-rotate-left ml-1"></i> مسح التسليم وإتاحة الإعادة</button></td></tr>`;
             });
+            tbody.innerHTML = htmlStr;
         }
 
         async function resetStudentSubmission(studentId) {
@@ -1603,16 +1677,19 @@
         }
 
         function renderAdminResults() {
-            const tbody = document.getElementById('admin-results-tbody'); if (!tbody) return; tbody.innerHTML = '';
+            const tbody = document.getElementById('admin-results-tbody'); if (!tbody) return;
             if (!DB.results || DB.results.length === 0) { tbody.innerHTML = '<tr><td colspan="6" class="p-6 text-center text-slate-500 text-sm">لا توجد نتائج مسجلة حتى الآن.</td></tr>'; return; }
+            let htmlStr = '';
             DB.results.slice().reverse().forEach((r, index) => {
-                const actualIndex = DB.results.length - 1 - index; const tr = document.createElement('tr');
-                tr.innerHTML = `
+                const actualIndex = DB.results.length - 1 - index;
+                htmlStr += `
+                    <tr>
                     <td class="p-4 font-bold text-white wrap-safe">${r.studentName}</td><td class="p-4 font-mono text-indigo-300 text-center text-lg">${r.score} / ${r.totalPoints}</td><td class="p-4 font-black text-center text-lg ${r.percent >= 50 ? 'text-emerald-400' : 'text-red-400'}">${r.percent}%</td><td class="p-4 text-slate-300 text-center text-sm bg-slate-950/50"><span class="text-emerald-400">${r.correctCount} صح</span> / <span class="text-red-400">${r.wrongCount} خطأ</span></td><td class="p-4 text-slate-400 font-mono text-xs text-center">${r.dateTime}</td>
                     <td class="p-4 flex justify-center items-center gap-3"><button type="button" onclick="viewResultByIndex(${actualIndex})" class="text-indigo-300 hover:text-indigo-100 bg-indigo-900/30 px-4 py-2 rounded-lg text-sm font-bold cursor-pointer transition"><i class="fa-solid fa-eye"></i> عرض</button><button type="button" onclick="deleteSingleResult(${actualIndex})" class="text-red-400 hover:text-red-100 bg-red-900/30 px-4 py-2 rounded-lg text-sm font-bold cursor-pointer transition"><i class="fa-solid fa-trash"></i> حذف</button></td>
+                    </tr>
                 `;
-                tbody.appendChild(tr);
             });
+            tbody.innerHTML = htmlStr;
         }
 
         async function deleteSingleResult(index) { if (confirm('هل أنت متأكد من حذف هذه النتيجة؟')) { DB.results.splice(index, 1); await saveDatabase(); renderAdminResults(); renderAdminBanned(); showToast('تم حذف النتيجة.', 'fa-trash'); } }
